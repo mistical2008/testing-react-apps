@@ -4,20 +4,19 @@
 import * as React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import faker from 'faker'
+import {build, fake} from '@jackfranklin/test-data-bot'
 import Login from '../../components/login'
 
-function buldLoginForm(overrides) {
-  return {
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    ...overrides,
-  }
-}
+const buildLoginForm = build('LoginForm', {
+  fields: {
+    username: fake(f => f.internet.userName()),
+    password: fake(f => f.internet.password()),
+  },
+})
 
 test('submitting the form calls onSubmit with username and password', () => {
   const handleSubmit = jest.fn()
-  const {username, password} = buldLoginForm({pasword: 'abc'})
+  const {username, password} = buildLoginForm({overrides: {pasword: 'abc'}})
 
   render(<Login onSubmit={handleSubmit} />)
 
