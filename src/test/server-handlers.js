@@ -10,7 +10,7 @@ const handlers = [
         return res(
           ctx.delay(delay),
           ctx.status(400),
-          ctx.json({message: 'password required'}),
+          ctx.json({message: 'password is required'}),
         )
       }
       if (!req.body.username) {
